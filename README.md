@@ -1,176 +1,96 @@
-# Bank ATM Manager
+<div align="center">
 
-A console-based Bank ATM Management system built in C++ as a Programming Fundamentals project. This application simulates real-world ATM operations with account security, transaction history, and an admin interface.
+# 🚀 𝐁𝐀𝐍𝐊 𝐀𝐓𝐌 𝐌𝐀𝐍𝐀𝐆𝐄𝐑 🚀
+  
+![C++](https://img.shields.io/badge/Language-C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![Windows](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
+![Console App](https://img.shields.io/badge/Type-Console_Application-FF4500?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
 
-## Features
+<h3> 🌟 A powerful, secure, and feature-rich ATM Management System built from scratch! 🌟 </h3>
 
-- **Account Authentication**: Secure login using Account Number and PIN.
-- **Account Security**: Accounts are automatically locked after 3 failed login attempts.
-- **Transactions**:
-  - **Deposit**: Add funds to your account.
-  - **Withdraw**: Withdraw funds (with balance validation).
-  - **Transfer**: Transfer funds securely to other registered accounts.
-  - **Check Balance**: View your current balance.
-- **Mini Statement**: View a history of your latest transactions.
-- **Admin Panel**: Administrative controls (requires admin credentials) for managing accounts and system status.
+</div>
 
-## Data Storage
+---
 
-The system uses file handling to persist data across sessions:
-- `accounts.txt`: Stores account details (Account Number, PIN, Balance, Status, Failed Attempts, etc.).
-- `transactions.txt`: Records all transactions (Type, Source, Destination, Amount) for generating mini statements.
-- `admin.txt`: Stores administrator credentials.
+## 🌈 What is this?
+Welcome to the most exciting **Bank ATM Manager**! Built as a *Programming Fundamentals* project, this system simulates real-world banking operations right in your terminal. It's fast, robust, and completely terminal-based!
 
-## Getting Started
+---
 
-### Prerequisites
-- A C++ Compiler (e.g., GCC, MSVC).
-- Visual Studio (optional, as the repository includes `.sln` and `.vcxproj` files).
+## 🔥 Mind-Blowing Features!
+<details>
+<summary><b> 🔐 Ultimate Security </b> <i>(Click to expand)</i></summary>
+<br>
 
-### Running the Project
-1. Clone the repository to your local machine.
-2. Open the `Bank ATM Manager PF Project 01.sln` file in Visual Studio.
-3. Build and Run the project (typically pressing `F5`).
-4. Alternatively, you can compile `bscs25109 PRO 01.cpp` directly using your preferred C++ compiler.
+- **Pin Protection:** Your account is safe with a custom PIN.
+- **Auto-Lock:** Mess up your PIN 3 times? 💥 **LOCKED!** Maximum security enforced.
+</details>
 
-## Usage
+<details>
+<summary><b> 💸 Core Transactions </b> <i>(Click to expand)</i></summary>
+<br>
 
-When you launch the program, you will be prompted to either log in as a user or enter the admin panel. Ensure that the required `.txt` files (`accounts.txt`, `transactions.txt`, `admin.txt`) are present in the same directory as the executable with valid initial data formatting.
+- 💰 **Deposit:** Watch your balance grow!
+- 🏧 **Withdraw:** Get your cash instantly (if you have the funds 😉).
+- 🔄 **Transfer:** Move money seamlessly between registered accounts.
+- 📊 **Check Balance:** Always know what's in your wallet.
+</details>
 
-## Documentation & Screenshots
+<details>
+<summary><b> 📜 Instant Mini-Statements </b> <i>(Click to expand)</i></summary>
+<br>
 
-This repository also includes:
-- **Project Report**: [`REPORT of BANK ATM SYSTEM.pdf`](./REPORT%20of%20BANK%20ATM%20SYSTEM.pdf) – Contains detailed explanation of the project structure and logic.
-- **Screenshots**: [`BSCS25109 BANK ATM SYSTEM SCREENSHOT.pdf`](./BSCS25109%20BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf) – Contains visual examples of the program running in the console.
-# Bank ATM Manager
+- Keep track of everything! Generates a gorgeous table of your most recent transactions instantly.
+</details>
 
-A console-based Bank ATM Management system built in C++ as a Programming Fundamentals project. This application simulates real-world ATM operations with account security, transaction history, and an admin interface.
+<details>
+<summary><b> 👑 God Mode (Admin Panel) </b> <i>(Click to expand)</i></summary>
+<br>
 
-## Features
+- Log in as the Admin to manage the entire system, view global stats, and control user accounts.
+</details>
 
-- **Account Authentication**: Secure login using Account Number and PIN.
-- **Account Security**: Accounts are automatically locked after 3 failed login attempts.
-- **Transactions**:
-  - **Deposit**: Add funds to your account.
-  - **Withdraw**: Withdraw funds (with balance validation).
-  - **Transfer**: Transfer funds securely to other registered accounts.
-  - **Check Balance**: View your current balance.
-- **Mini Statement**: View a history of your latest transactions.
-- **Admin Panel**: Administrative controls (requires admin credentials) for managing accounts and system status.
+---
 
-## Data Storage
+## 📁 Data Management (Under the Hood)
+No databases? No problem! We use lightning-fast **File Handling** to keep your data safe even after you close the app:
+* 🟢 `accounts.txt` - Your identities, balances, and security statuses.
+* 🔵 `transactions.txt` - Every penny moved is tracked here.
+* 🔴 `admin.txt` - Top-secret admin credentials.
 
-The system uses file handling to persist data across sessions:
-- `accounts.txt`: Stores account details (Account Number, PIN, Balance, Status, Failed Attempts, etc.).
-- `transactions.txt`: Records all transactions (Type, Source, Destination, Amount) for generating mini statements.
-- `admin.txt`: Stores administrator credentials.
+---
 
-## Getting Started
+## 🚀 How to Launch This Beast
 
-### Prerequisites
-- A C++ Compiler (e.g., GCC, MSVC).
-- Visual Studio (optional, as the repository includes `.sln` and `.vcxproj` files).
+```bash
+# 1. Clone this repository
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git
 
-### Running the Project
-1. Clone the repository to your local machine.
-2. Open the `Bank ATM Manager PF Project 01.sln` file in Visual Studio.
-3. Build and Run the project (typically pressing `F5`).
-4. Alternatively, you can compile `bscs25109 PRO 01.cpp` directly using your preferred C++ compiler.
+# 2. Navigate to the directory
+cd "Bank ATM Manager PF Project 01"
 
-## Usage
+# 3. Open in Visual Studio or compile manually
+g++ "bscs25109 PRO 01.cpp" -o atm_manager
 
-When you launch the program, you will be prompted to either log in as a user or enter the admin panel. Ensure that the required `.txt` files (`accounts.txt`, `transactions.txt`, `admin.txt`) are present in the same directory as the executable with valid initial data formatting.
+# 4. Run it!
+./atm_manager
+```
 
-## Documentation & Screenshots
+> [!WARNING]
+> **Important:** Make sure all `.txt` files are in the same folder as the executable for the magic to work!
 
-This repository also includes:
-- **Project Report**: [`REPORT of BANK ATM SYSTEM.pdf`](./REPORT%20of%20BANK%20ATM%20SYSTEM.pdf) – Contains detailed explanation of the project structure and logic.
-- **Screenshots**: [`BSCS25109 BANK ATM SYSTEM SCREENSHOT.pdf`](./BSCS25109%20BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf) – Contains visual examples of the program running in the console.
-# Bank ATM Manager
+---
 
-A console-based Bank ATM Management system built in C++ as a Programming Fundamentals project. This application simulates real-world ATM operations with account security, transaction history, and an admin interface.
+## 📚 Epic Documentation & Visuals
+Want to see the logic and action without running it? Check out the goods:
 
-## Features
+| 📄 Document | 🎯 Description |
+| :--- | :--- |
+| [**📖 Complete Project Report**](./REPORT%20of%20BANK%20ATM%20SYSTEM.pdf) | Dive deep into the algorithms, logic, and structure behind the code. |
+| [**📸 Live Screenshots**](./BSCS25109%20BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf) | See the terminal interface in all its glory! |
 
-- **Account Authentication**: Secure login using Account Number and PIN.
-- **Account Security**: Accounts are automatically locked after 3 failed login attempts.
-- **Transactions**:
-  - **Deposit**: Add funds to your account.
-  - **Withdraw**: Withdraw funds (with balance validation).
-  - **Transfer**: Transfer funds securely to other registered accounts.
-  - **Check Balance**: View your current balance.
-- **Mini Statement**: View a history of your latest transactions.
-- **Admin Panel**: Administrative controls (requires admin credentials) for managing accounts and system status.
-
-## Data Storage
-
-The system uses file handling to persist data across sessions:
-- `accounts.txt`: Stores account details (Account Number, PIN, Balance, Status, Failed Attempts, etc.).
-- `transactions.txt`: Records all transactions (Type, Source, Destination, Amount) for generating mini statements.
-- `admin.txt`: Stores administrator credentials.
-
-## Getting Started
-
-### Prerequisites
-- A C++ Compiler (e.g., GCC, MSVC).
-- Visual Studio (optional, as the repository includes `.sln` and `.vcxproj` files).
-
-### Running the Project
-1. Clone the repository to your local machine.
-2. Open the `Bank ATM Manager PF Project 01.sln` file in Visual Studio.
-3. Build and Run the project (typically pressing `F5`).
-4. Alternatively, you can compile `bscs25109 PRO 01.cpp` directly using your preferred C++ compiler.
-
-## Usage
-
-When you launch the program, you will be prompted to either log in as a user or enter the admin panel. Ensure that the required `.txt` files (`accounts.txt`, `transactions.txt`, `admin.txt`) are present in the same directory as the executable with valid initial data formatting.
-
-## Documentation & Screenshots
-
-This repository also includes:
-- **Project Report**: [`REPORT of BANK ATM SYSTEM.pdf`](./REPORT%20of%20BANK%20ATM%20SYSTEM.pdf) – Contains detailed explanation of the project structure and logic.
-- **Screenshots**: [`BSCS25109 BANK ATM SYSTEM SCREENSHOT.pdf`](./BSCS25109%20BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf) – Contains visual examples of the program running in the console.
-# Bank ATM Manager
-
-A console-based Bank ATM Management system built in C++ as a Programming Fundamentals project. This application simulates real-world ATM operations with account security, transaction history, and an admin interface.
-
-## Features
-
-- **Account Authentication**: Secure login using Account Number and PIN.
-- **Account Security**: Accounts are automatically locked after 3 failed login attempts.
-- **Transactions**:
-  - **Deposit**: Add funds to your account.
-  - **Withdraw**: Withdraw funds (with balance validation).
-  - **Transfer**: Transfer funds securely to other registered accounts.
-  - **Check Balance**: View your current balance.
-- **Mini Statement**: View a history of your latest transactions.
-- **Admin Panel**: Administrative controls (requires admin credentials) for managing accounts and system status.
-
-## Data Storage
-
-The system uses file handling to persist data across sessions:
-- `accounts.txt`: Stores account details (Account Number, PIN, Balance, Status, Failed Attempts, etc.).
-- `transactions.txt`: Records all transactions (Type, Source, Destination, Amount) for generating mini statements.
-- `admin.txt`: Stores administrator credentials.
-
-## Getting Started
-
-### Prerequisites
-- A C++ Compiler (e.g., GCC, MSVC).
-- Visual Studio (optional, as the repository includes `.sln` and `.vcxproj` files).
-
-### Running the Project
-1. Clone the repository to your local machine.
-2. Open the `Bank ATM Manager PF Project 01.sln` file in Visual Studio.
-3. Build and Run the project (typically pressing `F5`).
-4. Alternatively, you can compile `bscs25109 PRO 01.cpp` directly using your preferred C++ compiler.
-
-## Usage
-
-When you launch the program, you will be prompted to either log in as a user or enter the admin panel. Ensure that the required `.txt` files (`accounts.txt`, `transactions.txt`, `admin.txt`) are present in the same directory as the executable with valid initial data formatting.
-
-## Documentation & Screenshots
-
-This repository also includes:
-- **Project Report**: [`REPORT of BANK ATM SYSTEM.pdf`](./REPORT%20of%20BANK%20ATM%20SYSTEM.pdf) – Contains detailed explanation of the project structure and logic.
-- **Screenshots**: [`BSCS25109 BANK ATM SYSTEM SCREENSHOT.pdf`](./BSCS25109%20BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf) – Contains visual examples of the program running in the console.
+---
+<div align="center">
+  <b>Built with ❤️ by a passionate C++ Developer</b>
+</div>
