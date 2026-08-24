@@ -90,5 +90,5 @@ The Admin has the power to:
 
 ## 📚 Supporting Documents
 For more in-depth diagrams and examples:
-- [**Project Report (PDF)**](./REPORT%20of%20BANK%20ATM%20SYSTEM.pdf)
+- [**Project Report (PDF)**](BSCS25109%20BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf)
 - [**Terminal Screenshots (PDF)**](BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf)
