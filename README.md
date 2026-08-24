@@ -1,8 +1,30 @@
 <div align="center">
 
-# 📖 Bank ATM Manager: Project Documentation & Walkthrough
+# 🏦💳 Bank ATM Manager 💳🏦
+### *Project Documentation & Walkthrough — Console Banking in C++*
 
-A comprehensive look at the **Bank ATM Management System**, a console-based application written in C++ designed to demonstrate core **Programming Fundamentals**. This document explains the inner workings, data structures, and algorithms used in the project.
+---
+
+![C++](https://img.shields.io/badge/Language-C%2B%2B-blue?style=for-the-badge&logo=cplusplus&logoColor=white&color=00599C)
+![Platform](https://img.shields.io/badge/Platform-Windows-informational?style=for-the-badge&logo=windows&logoColor=white&color=0078D6)
+![Type](https://img.shields.io/badge/Type-Console%20App-critical?style=for-the-badge&logoColor=white&color=FF4500)
+![Accounts](https://img.shields.io/badge/Capacity-2000%20Accounts-success?style=for-the-badge&logoColor=white&color=28A745)
+![Status](https://img.shields.io/badge/Status-Fully%20Functional-brightgreen?style=for-the-badge&color=00C853)
+
+---
+
+```
+ █████╗ ████████╗███╗   ███╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗
+██╔══██╗╚══██╔══╝████╗ ████║    ████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝██╔══██╗
+███████║   ██║   ██╔████╔██║    ██╔████╔██║███████║██╔██╗ ██║███████║██║  ███╗█████╗  ██████╔╝
+██╔══██║   ██║   ██║╚██╔╝██║    ██║╚██╔╝██║██╔══██║██║╚██╗██║██╔══██║██║   ██║██╔══╝  ██╔══██╗
+██║  ██║   ██║   ██║ ╚═╝ ██║    ██║ ╚═╝ ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗██║  ██║
+╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+```
+
+> ### *"Secure. Fast. Reliable. Your accounts, your control."*
+
+A comprehensive look at the **Bank ATM Management System**, a console-based application written in **C++** designed to demonstrate core **Programming Fundamentals**. This document explains the inner workings, data structures, and algorithms used in the project.
 
 </div>
 
@@ -10,85 +32,242 @@ A comprehensive look at the **Bank ATM Management System**, a console-based appl
 
 ## 🏗️ System Architecture
 
-This project is built using procedural C++ (no Object-Oriented Programming). It utilizes parallel arrays to store account properties in memory and text files (`.txt`) for persistent data storage.
+This project is built using **procedural C++** (no Object-Oriented Programming). It utilizes **parallel arrays** to store account properties in memory and **text files (`.txt`)** for persistent data storage — acting as a lightweight database replacement.
 
-### 🧠 Data Structures (In-Memory)
-Instead of using classes or structs, the application manages up to **2000 accounts** using parallel global arrays:
-- `accountNumbers[2000]`: Stores the unique 5-digit account numbers (e.g., `10001`).
-- `pins[2000][6]`: A 2D character array storing the 4-digit PINs (plus null terminators).
-- `balances[2000]`: Stores the monetary balance of each account.
-- `status[2000]`: Character array tracking if an account is Active (`'A'`), Closed (`'C'`), or Disabled (`'D'`).
-- `failedAttempts[2000]`: Tracks how many times an incorrect PIN was entered.
-- `locked[2000]`: Boolean flag (0 or 1) indicating if the account is locked due to security breaches.
+### 🧠 Data Structures — In-Memory Representation
 
-### 💾 File Persistence (Database Alternative)
-The application doesn't use a database like SQL. Instead, it uses `fstream` (File Stream) to write and read text files:
-1. **`accounts.txt`**: When the program starts, `loadAccounts()` reads this file line by line, pushing data into the parallel arrays. Every time a change happens (deposit, withdraw, lock), `saveAccounts()` overwrites this file with the updated arrays.
-2. **`transactions.txt`**: Every financial action calls `recordTransactions()`. This function opens the file in `ios::app` (append mode) to add a new line containing the Transaction ID, Type (1=Deposit, 2/3=Transfer, 4=Withdraw), Source, Destination, and Amount.
+Instead of using classes or structs, the application manages up to **2,000 accounts** using parallel global arrays. Each index `i` across all arrays represents one single account:
+
+| Array | Size | Purpose |
+|---|---|---|
+| `accountNumbers[2000]` | 2000 ints | Stores unique 5-digit account numbers (e.g., `10001`) |
+| `pins[2000][6]` | 2000 × 6 chars | 2D char array storing 4-digit PINs + null terminators |
+| `balances[2000]` | 2000 floats | The monetary balance of each account |
+| `status[2000]` | 2000 chars | Account state: `'A'` Active, `'C'` Closed, `'D'` Disabled |
+| `failedAttempts[2000]` | 2000 ints | Counts incorrect PIN attempts per account |
+| `locked[2000]` | 2000 bools | `1` = account locked due to security breach, `0` = unlocked |
+
+> 💡 **Why parallel arrays?** Since this project focuses on *Programming Fundamentals*, using `struct` or `class` is avoided. All six arrays are indexed in sync — `accountNumbers[3]`, `balances[3]`, `status[3]` all refer to the **same account**.
+
+---
+
+### 💾 File Persistence — The Database Alternative
+
+The application doesn't use SQL or any database engine. Instead, it uses C++'s `fstream` (File Stream) library to read and write plain text files as persistent storage:
+
+```
+📁 Project Files
+├── 📄 accounts.txt       → Master record of all accounts (loaded on startup)
+├── 📄 transactions.txt   → Append-only log of every financial action
+└── 📄 admin.txt          → Admin credentials (used for God Mode access)
+```
+
+**How it works:**
+
+1. **`accounts.txt`** — On startup, `loadAccounts()` reads this file **line by line**, pushing each field into the parallel arrays. Every time any change occurs (deposit, withdrawal, account lock), `saveAccounts()` **overwrites** the entire file with the updated in-memory arrays.
+
+2. **`transactions.txt`** — Every financial action triggers `recordTransactions()`. This function opens the file in `ios::app` (append mode) to add a new log line containing:
+   - Transaction ID
+   - Type (`1`=Deposit, `2/3`=Transfer Out/In, `4`=Withdrawal)
+   - Source account
+   - Destination account
+   - Amount
 
 ---
 
 ## 🔐 Security & Authentication Logic
 
-### 1. The Login Flow
-When a user attempts to log in (`customerLogin()`):
-1. **Linear Search:** The system searches the `accountNumbers` array to find the index of the provided account.
-2. **Status Checks:** It verifies that `status[index] == 'A'` (Active) and `locked[index] == 0`.
-3. **PIN Validation:** The user gets 3 attempts (`loginAttempts = 3`). Input is hidden using `_getch()` which prints `*` to the console instead of the actual number.
-4. **Lockout Mechanism:** If the user fails 3 times, `failedAttempts[index]` hits the limit, `locked[index]` is set to `1`, and the account is saved. Only an Admin can unlock it.
+### 1️⃣ The Login Flow
 
-### 2. PIN Changing
-The `changePIN()` function requires the user to input their old PIN, then input the new PIN twice to ensure there are no typos. It strictly validates that the PIN is exactly 4 characters long and contains only numeric digits (`'0'` to `'9'`).
+When a user attempts to log in via `customerLogin()`, the following chain of checks occurs:
+
+```
+User enters Account Number
+        ↓
+[1] Linear Search → Find index in accountNumbers[]
+        ↓
+[2] Status Check  → status[index] == 'A' ? Continue : Reject
+        ↓
+[3] Lock Check    → locked[index] == 0  ? Continue : "Account Locked"
+        ↓
+[4] PIN Entry     → Up to 3 attempts, input hidden with _getch() → prints '*'
+        ↓
+[5] Fail 3 times? → failedAttempts hits limit → locked[index] = 1 → Save!
+```
+
+> 🔒 **Security Detail:** Input is hidden using `_getch()` from `<conio.h>`, which captures each keypress and prints `*` to the console instead of the actual digit — just like a real ATM!
+
+---
+
+### 2️⃣ PIN Changing — `changePIN()`
+
+The PIN change function enforces strict validation rules before accepting a new PIN:
+
+| Validation Step | Rule |
+|---|---|
+| ✅ Old PIN verification | Must match the current PIN on record |
+| ✅ New PIN entered twice | Both entries must match exactly (no typos) |
+| ✅ Length check | Must be **exactly 4 characters** |
+| ✅ Numeric check | Every character must be between `'0'` and `'9'` |
 
 ---
 
 ## 💸 Core Algorithms
 
-### Transfers (`transfer()`)
-Transferring money requires updating two accounts simultaneously:
-1. It verifies the destination account exists using a linear search.
-2. It checks if the sender has sufficient balance.
-3. It subtracts the amount from `balances[senderIndex]` and adds it to `balances[destIndex]`.
-4. It records **two** transactions in the history: one `TransferOut` (Type 2) for the sender, and one `TransferIn` (Type 3) for the receiver.
-5. It triggers `saveAccounts()` to ensure the transfer is permanent.
+### 🔄 Transfers — `transfer()`
 
-### Mini Statement (`miniStatement()`)
-To generate a statement, the application:
-1. Reads all history from `transactions.txt` into temporary arrays.
-2. Loops backwards (from the most recent transaction to the oldest).
-3. Filters the results so it only prints transactions where the `Source` or `Destination` matches the logged-in user.
-4. Uses `<iomanip>` (e.g., `setw()`) to beautifully format the output table.
+Transferring money between two accounts requires **atomic-style** updates to avoid data corruption. Here's the step-by-step algorithm:
+
+```
+Step 1: Linear search → verify destination account exists
+Step 2: Check sender balance >= transfer amount
+Step 3: balances[senderIndex] -= amount
+Step 4: balances[destIndex]  += amount
+Step 5: Record TWO transactions:
+        → TransferOut (Type 2) for the sender
+        → TransferIn  (Type 3) for the receiver
+Step 6: Call saveAccounts() → persist both changes to accounts.txt
+```
+
+> ⚠️ **Why two transaction records?** One entry isn't enough — both the sender's and receiver's mini-statements must show the transfer independently.
 
 ---
 
-## 👑 The Admin Panel (God Mode)
+### 📋 Mini Statement — `miniStatement()`
 
-The system includes an Admin menu that can be accessed by matching the credentials stored in `admin.txt`. 
-The Admin has the power to:
-- **Open new accounts**: Automatically assigns the next available account number (e.g., `10005`) and sets initial deposit.
-- **Close or Suspend accounts**: Modifies the `status` array.
-- **Unlock accounts**: Resets the `locked` flag and `failedAttempts` to `0`.
-- **Display & Sort**: Admins can view all accounts. The application uses a **Bubble Sort algorithm** to sort accounts in Ascending or Descending order based on their `balances` before displaying them.
+Generating a bank statement from a flat text file requires clever filtering. Here's how it works:
+
+```cpp
+// Step 1: Read ALL transactions from transactions.txt into temp arrays
+// Step 2: Loop BACKWARDS (most recent → oldest)
+// Step 3: Filter — only print where Source OR Destination == current user
+// Step 4: Use <iomanip> setw() to align columns into a formatted table
+```
+
+| Column | Content |
+|---|---|
+| Transaction ID | Unique identifier for the transaction |
+| Type | Deposit / Transfer Out / Transfer In / Withdrawal |
+| Source | Account number that initiated the action |
+| Destination | Target account (for transfers) |
+| Amount | The transaction value |
+
+---
+
+## 👑 The Admin Panel — God Mode
+
+The Admin panel is accessed by matching credentials from `admin.txt`. Once authenticated, the Admin gains **full control** over all accounts in the system:
+
+| Admin Power | What It Does |
+|---|---|
+| 🆕 **Open New Account** | Auto-assigns the next account number, sets initial deposit |
+| 🚫 **Close Account** | Sets `status[index] = 'C'` — account becomes inaccessible |
+| ⏸️ **Suspend Account** | Sets `status[index] = 'D'` — temporarily disables access |
+| 🔓 **Unlock Account** | Resets `locked[index] = 0` and `failedAttempts[index] = 0` |
+| 📊 **View All Accounts** | Displays every account with full details |
+| 🔀 **Sort by Balance** | Uses **Bubble Sort** to reorder accounts Ascending or Descending |
+
+### 🔀 Bubble Sort — How Accounts Are Sorted
+
+The admin's "sort by balance" feature uses the classic **Bubble Sort** algorithm across all 6 parallel arrays simultaneously. When two accounts are swapped, **all corresponding values** in every array must be swapped together to maintain synchronization:
+
+```cpp
+// For every pass through the array:
+// If balances[j] > balances[j+1] → swap ALL 6 arrays at index j and j+1
+// This keeps accountNumbers, pins, status, locked, failedAttempts in sync
+```
 
 ---
 
 ## 🚀 How to Run the Project
 
-1. Clone or download this repository.
-2. Ensure you have a C++ compiler (like GCC or MSVC).
-3. Open `bscs25109 PRO 01.cpp` and compile it:
-   ```bash
-   g++ "bscs25109 PRO 01.cpp" -o atm_manager
-   ```
-4. Run the executable:
-   ```bash
-   ./atm_manager
-   ```
-5. **Requirement:** Ensure `accounts.txt`, `transactions.txt`, and `admin.txt` are in the same folder as the executable for the file streams to work properly.
+### Prerequisites
+- ✅ **Windows OS** (uses `<conio.h>` and `_getch()` for hidden input)
+- ✅ **C++ Compiler** — GCC (MinGW) or MSVC
+- ✅ **Supporting files** in the same directory as the executable
+
+### Step-by-Step
+
+```bash
+# Step 1: Clone or download this repository
+git clone https://github.com/YOUR_USERNAME/bank-atm-manager.git
+
+# Step 2: Navigate into the folder
+cd bank-atm-manager
+
+# Step 3: Compile the source file
+g++ "bscs25109 PRO 01.cpp" -o atm_manager.exe
+
+# Step 4: Run the program
+./atm_manager.exe
+```
+
+> ⚠️ **Important:** Make sure `accounts.txt`, `transactions.txt`, and `admin.txt` exist **in the same folder** as the executable. Without them, the file streams will fail to load/save data correctly.
+
+---
+
+## 📁 Project Structure
+
+```
+📦 Bank ATM Manager/
+├── 🧠 bscs25109 PRO 01.cpp            <- Main source file (all logic here)
+├── 📄 accounts.txt                    <- Persistent account storage
+├── 📄 transactions.txt                <- Append-only transaction log
+├── 📄 admin.txt                       <- Admin credentials file
+├── 📋 REPORT of BANK ATM SYSTEM.pdf  <- Full project report
+├── 📸 BSCS25109 BANK ATM SYSTEM SCREENSHOT.pdf  <- Terminal screenshots
+└── 📖 README 1.md                     <- You are here!
+```
+
+---
+
+## 🌐 Concepts Demonstrated
+
+```
+✅ Parallel Arrays          (In-memory data management without structs)
+✅ File I/O (fstream)       (ofstream / ifstream for persistent storage)
+✅ Linear Search            (Finding accounts by account number)
+✅ Bubble Sort Algorithm    (Sorting accounts by balance)
+✅ Input Validation         (PIN length, numeric check, match check)
+✅ Security via _getch()    (Hidden PIN input like a real ATM)
+✅ Append-mode File Writing (ios::app for transaction logging)
+✅ Loops & Conditionals     (All menu logic and control flow)
+✅ Functions (Modular)      (Each feature is its own function)
+✅ Global State Management  (Shared arrays across all functions)
+```
 
 ---
 
 ## 📚 Supporting Documents
-For more in-depth diagrams and examples:
-- [**Project Report (PDF)**](REPORT%20of%20BANK%20ATM%20SYSTEM.pdf)
-- [**Terminal Screenshots (PDF)**](BSCS25109%20BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf)
+
+For more in-depth diagrams, flowcharts, and examples:
+
+| Document | Description |
+|---|---|
+| 📋 [**Project Report (PDF)**](REPORT%20of%20BANK%20ATM%20SYSTEM.pdf) | Full written report covering design decisions |
+| 📸 [**Terminal Screenshots (PDF)**](BSCS25109%20BANK%20ATM%20SYSTEM%20SCREENSHOT.pdf) | Live screenshots of every menu and feature |
+
+---
+
+<div align="center">
+
+---
+
+### ⚡ Built with Passion — Pure Procedural C++ ⚡
+
+```
+  💳 [ LOGIN ]  →  [ PIN CHECK ]  →  [ DASHBOARD ]
+       ↓                 ↓                  ↓
+  Account #         3 Attempts          Deposit 💰
+  Lookup            _getch() *          Withdraw 💸
+  Linear            Lock on Fail        Transfer 🔄
+  Search            Admin Unlock        Statement 📋
+```
+
+**🏦 Secure. Fast. Reliable. Built from scratch in C++. 🏆**
+
+---
+
+*© 2025 Abu Bakar — BSCS25109 | Programming Fundamentals Project*
+
+</div>
